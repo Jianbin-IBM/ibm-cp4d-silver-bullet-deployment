@@ -3,7 +3,6 @@
 # for Online API, main R must be able to process input json and then generate output json
 library(xgboost)
 library(jsonlite)
-library(gcm.ReferenceTables)
 
 args <- commandArgs(trailingOnly = TRUE)
 

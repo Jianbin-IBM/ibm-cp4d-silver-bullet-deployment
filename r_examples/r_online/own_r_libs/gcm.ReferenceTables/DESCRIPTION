@@ -1,0 +1,27 @@
+Package: gcm.ReferenceTables
+Title: Reference Tables
+Version: 1.1.0
+Authors@R: 
+    person("Group Wholesale Credit Modelling", role = c("aut","cre"), email = "ellie.button@anz.com")
+Description: Contains reference data and constants used by other Group Credit Models packages.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Depends: R (>= 2.10)
+RemoteType: github
+RemoteHost: https://github.service.anz/api/v3
+RemoteRepo: gcm.ReferenceTables
+RemoteUsername: GCM
+RemoteRef: HEAD
+RemoteSha: e82a5d78509a3023e844c6bdec20c31d20e095b0
+GithubRepo: gcm.ReferenceTables
+GithubUsername: GCM
+GithubRef: HEAD
+GithubSHA1: e82a5d78509a3023e844c6bdec20c31d20e095b0
+NeedsCompilation: no
+Packaged: 2024-03-22 02:11:00 UTC; tangj23
+Author: Group Wholesale Credit Modelling [aut, cre]
+Maintainer: Group Wholesale Credit Modelling <ellie.button@anz.com>
+Built: R 4.3.2; ; 2024-03-22 02:11:01 UTC; unix

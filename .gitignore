@@ -1,0 +1,49 @@
+# Don't track content of these folders
+empatica-data-annotation/visualisation
+
+# apple files #
+###################
+.DS_Store
+r42_env
+
+# pycharm #
+###################
+*.xml
+*.iml
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+
+*.yaml
+!configuration_template.yaml
+!configuration_template_R.yaml
+!configuration_template_py.yaml
+
+
+# Pycharm
+.idea
+
+# not track test folder
+test

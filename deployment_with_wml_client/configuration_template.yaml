@@ -1,0 +1,111 @@
+# wml_credentials will be different for CPD as platform and CPD as a Service(CPDaas)
+# If deploy to CPDaas, please fully comment out option 1 and uncomment option 2.
+
+## Option 1) for CPD as platform
+wml_credentials:
+  # Method 1) username and password
+  username: tangj23
+  password: yourpassword
+
+  # Method 2) using access_token instead of username/password
+  # how to generate access_token, refer to:
+  # CPD3.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/3.5.0?topic=overview-authentication
+  # CPD4.0: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=resources-generating-authorization-token
+  # CPD4.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=resources-generating-authorization-token-api-key
+  # Also in CPD Watson Studio, simply run: user_token = os.environ["USER_ACCESS_TOKEN"]
+  # "token": user_token
+
+  # Method 3) using apikey instead of username/password
+  # how to generate apikey, refer to:
+  # CPD3.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/3.5.0?topic=started-generating-api-keys#api-keys__platform
+  # CPD4.0: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=steps-generating-api-keys
+  # CPD4.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=steps-generating-api-keys
+  # "apikey": api_key
+
+  instance_id: openshift
+  url: [your CPD URL]
+  version: '4.7'
+
+## Option 2) for CPD as a service provided by https://dataplatform.cloud.ibm.com/
+## A good learning video in: https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-samples-overview.html
+#wml_credentials:
+#
+#  #  How to find URL, refer to https://cloud.ibm.com/apidocs/machine-learning#endpoint-url, you will find:
+#  #  Dallas: https://us-south.ml.cloud.ibm.com
+#  #  London - https://eu-gb.ml.cloud.ibm.com
+#  #  Frankfurt - https://eu-de.ml.cloud.ibm.com
+#  #  Tokyo - https://jp-tok.ml.cloud.ibm.com
+#  #url: https://us-south.ml.cloud.ibm.com
+#  url: https://jp-tok.ml.cloud.ibm.com
+#
+#  # Authentication: https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/ml-authentication.html
+#  apikey: [your API key]
+
+prj_info:
+  # Provide path to your code
+  code_dir: ../batch_job_example
+
+  # main file must site under code_dir. main file can call any dependencies inside subfolders.
+  main_file: main_batch_job.py
+
+  # optional: if you any R libraries from storage,
+  # please use below to specify your storage volume and path to your r libraries
+  storage_volume: wholesale-modelling
+  r_lib_path : r_lib_watson_api_test
+
+deployment_info:
+  # self-defined code package asset name
+  # function's name will be: pkg_name with postfix _func
+  # deployment's name will be: pkg_name with postfix _deployment
+  code_pkg_name: batch_job_example
+
+  # how to create deployment space and find space_id, please refer to:
+  # CPD3.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/3.5.0?topic=functions-deployment-spaces#create
+  # CPD4.0: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=spaces-creating-deployment
+  # CPD4.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=spaces-creating-deployment
+  space_id: fb22386d-ec8e-4b60-a6a6-52651f9c0960
+
+  # True: replace deployment if same deployment name has been found
+  # False: quit the deployment if same deployment name has been found
+  force_2_update: True   # default value: False
+
+  # 2 different deploy_modes:
+  # 1) online: online API
+  # 2) batch_job: scheduled upon requests
+  deploy_mode: batch_job
+
+  # hardware spec: refer to:https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/deploy-batch-details.html
+  # Size 	Hardware definition
+  # XS 	1 CPU and 4 GB RAM
+  # S 	2 CPU and 8 GB RAM
+  # M 	4 CPU and 16 GB RAM
+  # ML 	4 CPU and 32 GB RAM
+  # L 	8 CPU and 32 GB RAM
+  # XL 	16 CPU and 64 GB RAM
+  hardware_spec: S
+
+  # enable scalability when multiple nodes are needed
+  num_nodes: 1
+
+  # Define runtime. Must have '' in the string.
+  # For cpd3.5, it can be: 'default_py3.7'
+  # For cpd4.x, it can be: 'runtime-22.1-py3.9'
+  # For cpd4.6, it can be: 'runtime-22.2-py3.10'
+  # For cpd4.7, it can be: 'runtime-23.1-py3.10'
+  runtime: 'runtime-23.1-py3.10'
+
+  # if enable_stdout is False, no stdout info will be shown during a successful online/batch job execution
+  # for online application, we may want to disable the stdout to reduce the unnecessary traffic
+  # for batch application, recommend to enable stdout since we can get job running output from stdout
+  enable_stdout: True
+
+#  If no smtp email function, please either comment out whole below section,
+#  or set "False" to "send_email_when_successful" and "send_email_when_fail"
+email_setting:
+  send_email_when_successful: True # True, False. Setting "False" if not want to receive email
+  send_email_when_fail: True # True, False. Setting "False" if not want to receive email
+  smtp_server: [your smtp_server address]
+  sender: jbtang@au1.ibm.com
+  receivers: ['jbtang@au1.ibm.com', 'xxx@gmail.com']
+
+

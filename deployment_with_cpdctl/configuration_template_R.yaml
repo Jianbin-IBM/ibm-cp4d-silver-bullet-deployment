@@ -1,0 +1,133 @@
+## Optional to be used to download and install cpdctl before start
+#cpdctl_config:
+#  # If you have previously installed cpdctl, ensure that the file is located in the current directory.
+#  # To manually download cpdct: https://github.com/IBM/cpdctl,
+#  # Set download_cpdctl to True to download the latest version of CPDCTL, otherwise provide the filepath for where CPDCTL is located
+#  download_cpdctl: True
+#  cpdctl_filepath: cpdctl_darwin_amd64.tar.gz
+
+
+wml_credentials:
+
+  ###################################################
+  # Option 1: Using Username and Password           #
+  ###################################################
+  username: your_username
+  password: your_password
+
+  ###################################################
+  # Option 2: Using Username and Password           #
+  ###################################################
+  # token: your_token
+
+  ###################################################
+  # Option 3: Using API Key                         #
+  # Only apply to CPD as a service                  #
+  # For region please input one of the following:   #
+  # Dallas - us-south                               #
+  # London - eu-gb                                  #
+  # Frankfurt - eu-de                               #
+  # Tokyo - jp-tok                                  #
+  ###################################################
+  # apikey: your_apikey
+  # region: us-south
+
+
+  # How to find URL
+  #  For CPD as a platform, it is URL that you access CPD
+  #  For CPD as a service, please refer to https://cloud.ibm.com/apidocs/machine-learning#endpoint-url:
+  #  1. Dallas - https://us-south.ml.cloud.ibm.com
+  #  2. London - https://eu-gb.ml.cloud.ibm.com
+  #  3. Frankfurt - https://eu-de.ml.cloud.ibm.com
+  #  4. Tokyo - https://jp-tok.ml.cloud.ibm.com
+  url: [your CPD URL]
+  
+
+prj_info:
+  # Provide path to your code
+  code_dir: ../r_examples/rshiny
+
+  # main file must site under code_dir. main file can call any dependencies inside subfolders.
+  # for shiny apps, no need to include main_file, you just need app.R inside directory
+  main_file: app.R
+
+  # only use if deploying as rshiny app
+  r_shiny_app: True
+
+deployment_info:
+  code_pkg_name: your_code_pkg_name
+
+  # [Optional] - Only for R Script/Notebook jobs
+  # If not defined, job name will be code_pkg_name followed with "_job"
+  # job_name: your_job_name
+
+  # [optional] - Only for rshiny app,
+  # If not defined, rshiny_app_serving_name will be code_pkg_name+_app
+  # Important: Serving name can be up to 36 characters and can include _, a-z and 0-9. Try again with a valid serving name”
+  rshiny_app_serving_name: your_rshiny_app_serving_name
+
+  # Provide either a space_id or a project_id, depending on where you want to run the job, see read me for what types of files
+  # are supported in each deployment type. If both space_id and project_id are provided, space_id will take precedent
+
+  # To create a deployment space, refer to:
+  # CPD3.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/3.5.0?topic=functions-deployment-spaces#create
+  # CPD4.0: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=spaces-creating-deployment
+  # CPD4.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=spaces-creating-deployment
+  # CPD4.7: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.7.x?topic=spaces-creating-deployment
+  # CPD4.8: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=spaces-creating-deployment
+  space_id: 488e587a-1d8c-49ec-a2f9-c5af01376dd6
+
+  # To create a project space, refer to:
+  # CPD3.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/3.5.0?topic=projects-creating-project
+  # CPD4.0: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=projects-creating-project
+  # CPD4.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=projects-creating-project
+  # CPD4.7: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.7.x?topic=projects-creating-project
+  # CPD4.8: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.8.x?topic=projects-creating-project
+  # project_id: 2e11aa16-6c0a-417a-bdf2-fdd857d888da
+
+  # True: replace deployment if same deployment name has been found
+  # False: quit the deployment if same deployment name has been found
+  force_2_update: True   # default value: False
+
+  # Define runtime
+  # Support customised runtime and default runtime
+  # To get a list of enviroment names on CP4D: Deployment Space -> Manage -> Enviorments -> Templates
+  # For custom runtime enviorment: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=environments-creating
+  # R runtime list
+  # CPD4.7 - : Runtime 23.1 on R 4.2
+  # RStudio runtime list
+  # CPD4.7 - : RStudio with Runtime 23.1 on R 4.2
+  runtime: RStudio with Runtime 23.1 on R 4.2
+
+  # [Optional] Define list of configuration variables in key=value pairs
+  # If you have a previously defined job with the same job_name, it will use previously defined cofiguration varaibles to run the job,
+  job_configuration_variables: [ key1=value1, key2=value2 ]
+
+  # Use environment variables to customize your job at runtime.
+  environment_configuration_variables: [foo=1, bar=2]
+
+  # Use next two options if deploying a R shiny application
+  # hardware spec: refer to:https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/deploy-batch-details.html
+  # Size 	Hardware definition
+  # XS 	1 CPU and 4 GB RAM
+  # S 	2 CPU and 8 GB RAM
+  # M 	4 CPU and 16 GB RAM
+  # ML 	4 CPU and 32 GB RAM
+  # L 	8 CPU and 32 GB RAM
+  # XL 	16 CPU and 64 GB RAM
+  hardware_spec: M
+
+  # select what level of authication for final url
+  # Anyone with the link: anyone_with_url
+  # Authenticated users: any_valid_user
+  # Collabortors in this deployment space: members_of_deployment_space
+  authentication: members_of_deployment_space
+
+#  If no smtp email function, please either comment out whole below section,
+#  or set "False" to "send_email_when_successful" and "send_email_when_fail"
+email_setting:
+  send_email_when_successful: True # True, False. Setting "False" if not want to receive email
+  send_email_when_fail: True # True, False. Setting "False" if not want to receive email
+  smtp_server: [your smtp_server address]
+  sender: jbtang@au1.ibm.com
+  receivers: ['jbtang@au1.ibm.com', 'xxx@gmail.com']

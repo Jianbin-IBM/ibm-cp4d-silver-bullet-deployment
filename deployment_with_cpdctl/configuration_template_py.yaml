@@ -1,0 +1,101 @@
+## Optional to be used to download and install cpdctl before start
+#cpdctl_config:
+#  # If you have previously installed cpdctl, ensure that the file is located in the current directory.
+#  # To manually download cpdct: https://github.com/IBM/cpdctl,
+#  # Set download_cpdctl to True to download the latest version of CPDCTL, otherwise provide the filepath for where CPDCTL is located
+#  download_cpdctl: True
+#  cpdctl_filepath: cpdctl_darwin_amd64.tar.gz
+
+
+wml_credentials:
+
+  ###################################################
+  # Option 1: Using Username and Password           #
+  ###################################################
+  username: your_username
+  password: your_password
+
+  ###################################################
+  # Option 2: Using Username and Password           #
+  ###################################################
+  # how to generate access_token, refer to:
+  # CPD3.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/3.5.0?topic=overview-authentication
+  # CPD4.0: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=resources-generating-authorization-token
+  # CPD4.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=resources-generating-authorization-token-api-key
+  # Also in CPD Watson Studio, simply run: user_token = os.environ["USER_ACCESS_TOKEN"]
+  # token: your_token
+
+  ###################################################
+  # Option 3: Using API Key                         #
+  # Only apply to CPD as a service                  #
+  # For region please input one of the following:   #
+  # Dallas - us-south                               #
+  # London - eu-gb                                  #
+  # Frankfurt - eu-de                               #
+  # Tokyo - jp-tok                                  #
+  ###################################################
+  # apikey: your_apikey
+  # region: us-south
+
+
+  # How to find URL
+  #  For CPD as a platform, it is URL that you access CPD
+  #  For CPD as a service, please refer to https://cloud.ibm.com/apidocs/machine-learning#endpoint-url:
+  #  1. Dallas - https://us-south.ml.cloud.ibm.com
+  #  2. London - https://eu-gb.ml.cloud.ibm.com
+  #  3. Frankfurt - https://eu-de.ml.cloud.ibm.com
+  #  4. Tokyo - https://jp-tok.ml.cloud.ibm.com
+  url: [your CPD URL]
+
+
+prj_info:
+  # Provide path to your code
+  code_dir: ../py_examples/notebooks
+
+  # main file must site under code_dir. main file can call any dependencies inside subfolders.
+  # both ipynb and py are supported
+  main_file: cpdctl_test_notebook.ipynb
+
+
+deployment_info:
+  code_pkg_name: test_notebook
+
+  # To create a deployment space, refer to:
+  # CPD3.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/3.5.0?topic=functions-deployment-spaces#create
+  # CPD4.0: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=spaces-creating-deployment
+  # CPD4.5: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=spaces-creating-deployment
+  space_id: a70888bf-bb06-408f-b43f-64d6ecb7ec9f
+
+  # True: replace deployment if same deployment name has been found
+  # False: quit the deployment if same deployment name has been found
+  force_2_update: True   # default value: False
+
+  # Define runtime
+  # Support customised runtime and default runtime
+  # To get a list of enviroment names on CP4D: Deployment Space -> Manage -> Enviorments -> Templates
+  # For custom runtime enviorment: https://www.ibm.com/docs/en/cloud-paks/cp-data/4.0?topic=environments-creating
+  # Default runtime
+  # CPD4.5 - Runtime 22.1 on Python 3.9
+  # CPD4.6 - Runtime 22.2 on Python 3.10
+  # CPD4.7 - Runtime 23.1 on Python 3.10
+  runtime: Runtime 23.1 on Python 3.10
+
+  # [Optional]
+  # If not defined, job name will be code_pkg_name followed with "_job"
+  # job_name: batch_job_example
+
+  # [Optional] Define list of configuration variables in key=value pairs
+  # If you have a previously defined job with the same job_name, it will use previously defined cofiguration varaibles to run the job,
+  job_configuration_variables: [ key1=value1, key2=value2 ]
+
+  # Use environment variables to customize your job at runtime.
+  environment_configuration_variables: [foo=1, bar=2]
+
+#  If no smtp email function, please either comment out whole below section,
+#  or set "False" to "send_email_when_successful" and "send_email_when_fail"
+email_setting:
+  send_email_when_successful: True # True, False. Setting "False" if not want to receive email
+  send_email_when_fail: True # True, False. Setting "False" if not want to receive email
+  smtp_server: [your smtp_server address]
+  sender: jbtang@au1.ibm.com
+  receivers: ['jbtang@au1.ibm.com', 'xxx@gmail.com']

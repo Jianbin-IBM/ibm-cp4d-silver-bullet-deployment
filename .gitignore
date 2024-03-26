@@ -1,5 +1,6 @@
 # Don't track content of these folders
-empatica-data-annotation/visualisation
+.ipynb_checkpoints
+
 
 # apple files #
 ###################

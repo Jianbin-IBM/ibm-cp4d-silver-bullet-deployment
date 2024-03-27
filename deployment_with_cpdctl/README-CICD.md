@@ -5,7 +5,7 @@ This read me contains the steps to achieve automation on IBM's Cloud Pak for Dat
 
 For this project once you have a jenkins instance set up, you will need to install the default plugins but also the following plugins.
 
-- Pipelines Utility Steps v2.16.2
+- Pipeline Utility Steps v2.16.2
 - Python Plugin v1.3
 - SSH server v3.322 
 

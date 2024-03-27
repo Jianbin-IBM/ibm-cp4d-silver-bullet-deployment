@@ -50,6 +50,9 @@ if __name__ == '__main__':
     install_cpdctl(cpdctl_config)
     """
         
+    subprocess.run(["export", "cpdctl=./cpdctl"], capture_output=True, text=True).stdout
+    subprocess.run(["cpdctl"])
+
     # Step 1: Login User
     from cpdctl_api import user_login
     user_login(wml_credentials)
@@ -69,8 +72,6 @@ if __name__ == '__main__':
         print("Space id or Project id missing, please update yaml file")
                
         exit()
-
-    subprocess.run(["export", "cpdctl=./cpdctl"], capture_output=True, text=True).stdout
 
     # DEFINING THE ENVIORMENT SPACE
     query_string = "(resources[?entity.environment.display_name == '{}'].metadata.asset_id)[0]".format(environment_name)

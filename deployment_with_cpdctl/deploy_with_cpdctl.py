@@ -70,7 +70,7 @@ if __name__ == '__main__':
                
         exit()
 
-
+    subprocess.run(["export", "cpdctl=./cpdctl"], capture_output=True, text=True).stdout
 
     # DEFINING THE ENVIORMENT SPACE
     query_string = "(resources[?entity.environment.display_name == '{}'].metadata.asset_id)[0]".format(environment_name)

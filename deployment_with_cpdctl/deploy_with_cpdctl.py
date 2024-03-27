@@ -50,9 +50,6 @@ if __name__ == '__main__':
     install_cpdctl(cpdctl_config)
     """
         
-    subprocess.run(["export", "cpdctl=./cpdctl"], capture_output=True, text=True).stdout
-    subprocess.run(["cpdctl"])
-
     # Step 1: Login User
     from cpdctl_api import user_login
     user_login(wml_credentials)
@@ -75,7 +72,7 @@ if __name__ == '__main__':
 
     # DEFINING THE ENVIORMENT SPACE
     query_string = "(resources[?entity.environment.display_name == '{}'].metadata.asset_id)[0]".format(environment_name)
-    env_id = subprocess.run(["cpdctl", "environment", "list", "--space-id", space_id, "--output", "json", "-j", query_string, "--raw-output"],
+    env_id = subprocess.run(["./cpdctl", "environment", "list", "--space-id", space_id, "--output", "json", "-j", query_string, "--raw-output"],
                             capture_output=True, text=True).stdout
     # env_id = env_id.removesuffix("\n") #python 3.9+
     env_id = remove_suffix(env_id, "\n")  # python 3.4+

@@ -89,7 +89,7 @@ def user_login(wml_credentials):
             }
     """
     # Unset any previous user to avoid confusion of users
-    subprocess.run(["cpdctl", "config", "profile", "unset", "cpd"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+    subprocess.run(["./cpdctl", "config", "profile", "unset", "cpd"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
     # define user
     user = wml_credentials.get('username')
@@ -97,9 +97,9 @@ def user_login(wml_credentials):
     # check if using password to login
     if(wml_credentials.get('password')):
         user_pass = wml_credentials['password']
-        subprocess.run(["cpdctl", "config", "user", "set", "cpd_pass", "--username", user, "--password", user_pass], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-        subprocess.run(["cpdctl", "config", "profile", "set", "cpd", "--url", wml_credentials['url'], "--user", "cpd_pass"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-        subprocess.run(["cpdctl", "config", "profile", "use", "cpd"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        subprocess.run(["./cpdctl", "config", "user", "set", "cpd_pass", "--username", user, "--password", user_pass], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        subprocess.run(["./cpdctl", "config", "profile", "set", "cpd", "--url", wml_credentials['url'], "--user", "cpd_pass"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
+        subprocess.run(["./cpdctl", "config", "profile", "use", "cpd"], stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
     # check if using apikey to login
     elif(wml_credentials.get('apikey')):
@@ -107,9 +107,9 @@ def user_login(wml_credentials):
         print("user: " + user)
         print("using api key: " + user_api)
         # user_region = wml_credentials['region']
-        subprocess.run(["cpdctl", "config", "user", "set", "cpd_api", "--username", user, "--apikey", user_api], capture_output=True, text=True).stdout
-        subprocess.run(["cpdctl", "config", "profile", "set", "cpd", "--url", wml_credentials['url'], "--user", "cpd_api"], capture_output=True, text=True).stdout
-        subprocess.run(["cpdctl", "config", "profile", "use", "cpd"], capture_output=True, text=True).stdout
+        subprocess.run(["./cpdctl", "config", "user", "set", "cpd_api", "--username", user, "--apikey", user_api], capture_output=True, text=True).stdout
+        subprocess.run(["./cpdctl", "config", "profile", "set", "cpd", "--url", wml_credentials['url'], "--user", "cpd_api"], capture_output=True, text=True).stdout
+        subprocess.run(["./cpdctl", "config", "profile", "use", "cpd"], capture_output=True, text=True).stdout
 
     # check if using token to login
     elif(wml_credentials.get('token')):
@@ -122,7 +122,7 @@ def user_login(wml_credentials):
     
     # try to search for spaces to verify user has been correctly authenticated
     try:
-        auth_verify = subprocess.run(["cpdctl", "space", "list", "--output", "yaml"], capture_output=True, text=True).stdout
+        auth_verify = subprocess.run(["./cpdctl", "space", "list", "--output", "yaml"], capture_output=True, text=True).stdout
         print("output from cpdctl: " + auth_verify)
         auth_verify = yaml.safe_load(auth_verify)
         print("output after yaml: " + auth_verify)
@@ -144,7 +144,7 @@ def verify_user_deployment_access(space_id):
     """
     # this function will verify if a user has access to a deployment space
     try:
-        space_verify = subprocess.run(["cpdctl", "space", "get", "--space-id", space_id, "--output", "yaml"], capture_output=True, text=True).stdout
+        space_verify = subprocess.run(["./cpdctl", "space", "get", "--space-id", space_id, "--output", "yaml"], capture_output=True, text=True).stdout
         space_verify = yaml.safe_load(space_verify)
         verify = space_verify["entity"]["name"]
     except:
@@ -160,7 +160,7 @@ def verify_user_project_access(project_id):
         project_id (string): The ID of the project to use
     """
     try:
-        project_verify = subprocess.run(["cpdctl", "project", "get", "--project-id", project_id, "--output", "yaml"], capture_output=True, text=True).stdout
+        project_verify = subprocess.run(["./cpdctl", "project", "get", "--project-id", project_id, "--output", "yaml"], capture_output=True, text=True).stdout
         project_verify = yaml.safe_load(project_verify)
         verify = project_verify["entity"]["name"]
     except:
@@ -183,7 +183,7 @@ def search_asset(asset_type, file_name, space_id, space_type):
     space_command = get_space_command(space_type)
 
     # Search if asset with same name exits in Deployment Space
-    asset_id = subprocess.run(["cpdctl", "asset", "search", "--type-name", asset_type, "--query", file_name, space_command, space_id,
+    asset_id = subprocess.run(["./cpdctl", "asset", "search", "--type-name", asset_type, "--query", file_name, space_command, space_id,
                                         "--output", "yaml", "-j", "results[0].metadata.asset_id", "--raw-output"], 
                                         capture_output=True, text=True).stdout
     asset_id = yaml.safe_load(asset_id)
@@ -208,7 +208,7 @@ def search_asset_metadata(asset_type, file_name, space_id, space_type):
     space_command = get_space_command(space_type)
 
     # Search if asset with same name exits in Deployment Space
-    output = subprocess.run(["cpdctl", "asset", "search", "--type-name", asset_type, "--query", file_name, space_command, space_id,
+    output = subprocess.run(["./cpdctl", "asset", "search", "--type-name", asset_type, "--query", file_name, space_command, space_id,
                                         "--output", "yaml", "--raw-output"], 
                                         capture_output=True, text=True).stdout
     output = yaml.safe_load(output)
@@ -239,7 +239,7 @@ def upload_asset(local_file_path: str, remote_file_path: str, commands, space_id
     space_command = get_space_command(space_type)
 
     # Remote file location of asset will be stored under the asset directory
-    subprocess.run(["cpdctl", "asset", "file", "upload", "--path", remote_file_path, "--file", local_file_path, space_command, space_id], 
+    subprocess.run(["./cpdctl", "asset", "file", "upload", "--path", remote_file_path, "--file", local_file_path, space_command, space_id], 
                    stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)    
 
     asset_id = subprocess.run(commands, capture_output=True, text=True).stdout
@@ -275,8 +275,8 @@ def upload_notebook(local_file_path: str, notebook_name: str, env_id: str, updat
     if(notebook_id != None):
         # Create a new version of the notebook, if there already exists a notebook
         if(update_file):
-            subprocess.run(["cpdctl","asset", "file", "upload", "--path", remote_file_path, "--file", local_file_path, "--space-id", space_id])
-            subprocess.run(["cpdctl", "notebook", "version", "create", "--notebook-id", notebook_id])
+            subprocess.run(["./cpdctl","asset", "file", "upload", "--path", remote_file_path, "--file", local_file_path, "--space-id", space_id])
+            subprocess.run(["./cpdctl", "notebook", "version", "create", "--notebook-id", notebook_id])
             
             print("Notebook [{}] successfully updated on cp4d".format(file_name))
             
@@ -293,7 +293,7 @@ def upload_notebook(local_file_path: str, notebook_name: str, env_id: str, updat
         runtime = {'environment': env_id}
         runtime_json = json.dumps(runtime)
 
-        commands = ["cpdctl", "notebook", "create", "--file-reference", remote_file_path, "--name", file_name, 
+        commands = ["./cpdctl", "notebook", "create", "--file-reference", remote_file_path, "--name", file_name, 
                     space_command, space_id, "--runtime", runtime_json, "--output", "json", "-j", "metadata.asset_id", "--raw-output"]
         notebook_id = upload_asset(local_file_path, remote_file_path, commands, space_id, space_type)
         
@@ -322,7 +322,7 @@ def upload_code_package(local_file_path: str, code_pkg_name: str, update_file: b
 
     code_pkg_id = search_asset("code_package", file_name, space_id, space_type)
     if(code_pkg_id == None):
-        commands = ["cpdctl", "code-package", "create", "--file-reference", remote_file_path, "--name", file_name, space_command, space_id, "--output", "json", "-j", "asset_id", "--raw-output"]
+        commands = ["./cpdctl", "code-package", "create", "--file-reference", remote_file_path, "--name", file_name, space_command, space_id, "--output", "json", "-j", "asset_id", "--raw-output"]
         
         if(update_file):
             code_pkg_id =  upload_asset(local_file_path, remote_file_path, commands, space_id, space_type)
@@ -338,7 +338,7 @@ def upload_code_package(local_file_path: str, code_pkg_name: str, update_file: b
             exit()
     else:
         # For code pacakges, we can only update the file reference for now, unfortunately it won't show that the file is updated via GUI on CP4D Platform 
-        subprocess.run(["cpdctl", "asset", "file", "upload", "--path", remote_file_path, "--file", local_file_path, space_command, space_id], 
+        subprocess.run(["./cpdctl", "asset", "file", "upload", "--path", remote_file_path, "--file", local_file_path, space_command, space_id], 
                    stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)    
 
         
@@ -354,12 +354,12 @@ def upload_rshiny_asset(local_file_path: str, shiny_asset_name: str, space_id: s
     shiny_asset_id = search_asset("shiny_asset", shiny_asset_name, space_id, "deployment")
     if (shiny_asset_id != None):
         print("Found existing assets with name code package name:",shiny_asset_id)
-        subprocess.run(["cpdctl", "asset", "delete", "--asset-id", shiny_asset_id, "--space-id", space_id],
+        subprocess.run(["./cpdctl", "asset", "delete", "--asset-id", shiny_asset_id, "--space-id", space_id],
                        stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         print(shiny_asset_id, "has been deleted")
 
     subprocess.run(
-        ["cpdctl", "asset", "file", "upload", "--path", remote_file_path, "--file", local_file_path, "--space-id",
+        ["./cpdctl", "asset", "file", "upload", "--path", remote_file_path, "--file", local_file_path, "--space-id",
          space_id],
         stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
@@ -393,7 +393,7 @@ def upload_rshiny_asset(local_file_path: str, shiny_asset_name: str, space_id: s
     attachments_json = json.dumps(attachments)
 
     result = subprocess.run(
-        ["cpdctl", "asset", "create", "--metadata", metadata_json, "--entity", entity_json, "--attachments",
+        ["./cpdctl", "asset", "create", "--metadata", metadata_json, "--entity", entity_json, "--attachments",
          attachments_json, "--space-id", space_id, "--output", "yaml", "-j", "metadata.asset_id", "--raw-output"],
         capture_output=True, text=True).stdout
 
@@ -410,7 +410,7 @@ def search_job(space_id: str, job_name: str, space_type):
     space_command = get_space_command(space_type)
 
     # Get a list of jobs that currently exist in the deployment space  
-    total_jobs = subprocess.run(["cpdctl", "job", "list", space_command, space_id, "--output", "yaml", "-j", "results[:].metadata.name", "--raw-output"], 
+    total_jobs = subprocess.run(["./cpdctl", "job", "list", space_command, space_id, "--output", "yaml", "-j", "results[:].metadata.name", "--raw-output"], 
                                     capture_output=True, text=True).stdout
     jobs_list = yaml.safe_load(total_jobs)
 
@@ -426,7 +426,7 @@ def search_job(space_id: str, job_name: str, space_type):
     # If job is found, we will delete that existing job, as that job points to the previous version of the file.        
     if(new_job_index != -1):
         # Based on the previous search, we find the job id of the exisiting job.
-        job_id_list = subprocess.run(["cpdctl", "job", "list", space_command, space_id, "--output", "yaml", "-j", "results[:].metadata.asset_id", "--raw-output"], 
+        job_id_list = subprocess.run(["./cpdctl", "job", "list", space_command, space_id, "--output", "yaml", "-j", "results[:].metadata.asset_id", "--raw-output"], 
                                     capture_output=True, text=True).stdout
         job_id_list = yaml.safe_load(job_id_list)    
         job_id = job_id_list[new_job_index]
@@ -441,7 +441,7 @@ def create_job(job_name, job_json, asset_id, space_id: str, space_type):
 
 
     if(job_id == None):
-        job_id = subprocess.run(["cpdctl", "job", "create", "--job", job_json, space_command, space_id, "--output", "json", "-j", 
+        job_id = subprocess.run(["./cpdctl", "job", "create", "--job", job_json, space_command, space_id, "--output", "json", "-j", 
                                     "metadata.asset_id", "--raw-output"], 
                                     capture_output=True, text=True).stdout
 
@@ -506,7 +506,7 @@ def create_codepackage_job(code_package_id, env_id, deployment_info, entrypoint,
     return job_id
     
 def search_hardware_spec( hardware_spec, space_id):
-    hardware_spec_list = subprocess.run(["cpdctl", "environment", "hardware-specification" ,"list", "--space-id", space_id, 
+    hardware_spec_list = subprocess.run(["./cpdctl", "environment", "hardware-specification" ,"list", "--space-id", space_id, 
                                         "--output", "yaml", "-j", "resources[:].metadata", "--raw-output"], 
                                     capture_output=True, text=True).stdout
    
@@ -518,7 +518,7 @@ def search_hardware_spec( hardware_spec, space_id):
     return None
 
 def search_r_shiny_app(serving_name, space_id):
-    asset_id = subprocess.run(["cpdctl", "ml", "deployment", "list", "--space-id", space_id, "--serving-name", serving_name,
+    asset_id = subprocess.run(["./cpdctl", "ml", "deployment", "list", "--space-id", space_id, "--serving-name", serving_name,
                                 "--output", "json", "-j", "resources[0].metadata.id", "--raw-output"], 
                                     capture_output=True, text=True).stdout
     asset_id = yaml.safe_load(asset_id) 
@@ -561,7 +561,7 @@ def create_r_shiny_app(deployment_info, rshiny_asset_id, space_id):
         pass
     else:
         print("Found existing deployed RShiny App with same name",asset_id)
-        subprocess.run(["cpdctl", "ml", "deployment","delete", "--deployment-id", asset_id, "--space-id", space_id], 
+        subprocess.run(["./cpdctl", "ml", "deployment","delete", "--deployment-id", asset_id, "--space-id", space_id], 
                         capture_output=True, text=True).stdout
 
         # sleep 10s and wait for deletion.
@@ -578,7 +578,7 @@ def create_r_shiny_app(deployment_info, rshiny_asset_id, space_id):
     }
     rshiny_details_json = json.dumps(rshiny_details)
 
-    subprocess.Popen(["cpdctl", "ml", "deployment", "create", "--space-id", space_id, "--name", rshiny_app_serving_name, "--asset", asset_json,
+    subprocess.Popen(["./cpdctl", "ml", "deployment", "create", "--space-id", space_id, "--name", rshiny_app_serving_name, "--asset", asset_json,
                     "--r-shiny", rshiny_details_json, "--hardware-spec", hardware_spec_details_json])
 
     print(rshiny_app_serving_name, "has been submitted for deployment.")
@@ -603,7 +603,7 @@ def run_job(deployment_info, job_id, env_id, space_id: str, space_type):
     #                   "--job-id", job_id, "--job-run", job_run_json], capture_output=False)
 
     # no waiting
-    subprocess.Popen(["cpdctl", "job", "run", "create", space_command, space_id,
+    subprocess.Popen(["./cpdctl", "job", "run", "create", space_command, space_id,
                     "--job-id", job_id, "--job-run", job_run_json])
 
     print("Job [{}] submitted to run with job id [{}].".format(job_name, job_id))

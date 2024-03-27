@@ -7,7 +7,7 @@ For this project once you have a jenkins instance set up, you will need to insta
 
 - Pipelines Utility Steps v2.16.2
 - Python Plugin v1.3
-- SSH serve v3.322 
+- SSH server v3.322 
 
 Additionally you will need to setup an SSH key for your Github with the public key associated with your account and the private key stored as a secret in the Jenkins Credentials Provider. To generate a new SSH key follow the steps here: https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 

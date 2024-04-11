@@ -1,7 +1,7 @@
 # Introduction
  "**S**ilver **B**ullet on **D**eployment with **W**atson **M**achine **L**earning" 
- aims with deploying any python projects to any IBM Cloud Pak for Data (CPD) system. 
- With simplified interface and clear yaml example, users can be enabled in several minutes.
+ aims with deploying any python/R projects to IBM Cloud Pak for Data (CPD) on-prem or CPDaas. 
+ With simplified interfaces and intuitive yaml example, users without any prior knowledge of CPD can be enabled in several minutes.
 
 There are 2 ways to deploy. One is using [wml client](https://pypi.org/project/ibm-watson-machine-learning/) 
 which is is a library that allows to work with Watson Machine Learning service on IBM Cloud and IBM Cloud for Data. 
@@ -9,16 +9,15 @@ The other is using [cpdctl](https://github.com/IBM/cpdctl).
 In the code repo, we provided APIs and examples for both methods.
 
 **Features**
-- Support projects developed with Watson Studio in IBM Cloud Pak for Data.
-- Support projects developed outside of Watson Studio.
-- Support CPD 3.5/4.0/4.5/4.6/4.7.
-- Support "batch job"  and "online" deployment.
-- Support CPD as a platform and also CPD as a service.
-- Support all ML frameworks, as long as it can be done with python.
-- It can be used to enable CI/CD.
-- If there is an accessible SMTP server within CPD, email notification can be enabled. 
-  It is particularly useful when python scripts failed due to bugs or imperfect data.
-- Contain **stderr** and **stdout** in job logs, so you know what happened in detail. 
+- Support projects developed within or outside of Watson Studio in IBM Cloud Pak for Data.
+- Support CPD 3.5/4.0/4.5/4.6/4.7/4.8 and potentially all future versions
+- Support Python/R Scripts, Python/R notebooks, R Shiny.  
+- Support "batch job"  and "online" deployment
+- Support all ML frameworks, as long as it can be done with python/R.
+- It provided one line deployment script to enable CI/CD.
+- Email notification can be enabled if there is an accessible SMTP server. 
+  It is particularly useful when python/R failed due to bugs or imperfect data.
+- Contain **stderr** and **stdout** in job logs and easy to know what happened in detail. 
 
 
 Authors: Jianbin Tang, jbtang@au1.ibm.com; Rutvik Dave, Rutvik.Dave@ibm.com

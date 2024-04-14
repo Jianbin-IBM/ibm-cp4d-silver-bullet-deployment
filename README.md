@@ -40,20 +40,20 @@ Also appreciate help from:
 Thank you!
 
 # Code Structure
-
-- **deployment_with_wml_client**
-  - APIs to deploy any python projects to Watson Machine Learning (WML) deployment space. 
-  - It supports batch job and online deployment.
-  - Jupyter notebook can be deployed after converting it to py.
-  - Not support deploy to SPARK environment.
 - **deployment_with_cpdctl** : 
-  - APIs to deploy any python projects to Watson Machine Learning deployment space.
-  - It supports py script and notebook deployment. 
-  - It supports deploy to SPARK and any customised environment.
-  - Not support "online" deployment yet.
-- **batch_job_example** : an example "batchjob" project code folder to be deployed.
-- **online_example** : an example "online" project code folder to be deployed.
-- **notebook_example** : an example with example notebooks to be deployed.
+  - Support py script and notebook deployment.
+  - Support R shiny deployment. 
+  - Support deploy to SPARK and any customised environment.
+  - Do not support py or R script as "online" API yet.
+  
+- **deployment_with_wml_client**
+  - Support py script deployment as job or online API
+  - Support r script deployment as online API
+  - Do not support Jupyter notebook directly and only can be deployed after converting it to py.
+  - Do not support deploy to SPARK environment and any customised environment.
+  
+- **py_examples** :  contains examples for python
+- **r_example** : contains examples for R
 
 # Usage
 We have 2 ways to deploy: 

@@ -1,49 +1,28 @@
-# Usage
+# Introduction
 
+- Support py script and notebook deployment.
+- Support R shiny deployment. 
+- Support deploy to SPARK and any customised environment.
+- Do not support py or R script as "online" API yet.
+
+## Prerequisites
+
+Download the corresponding latest CPDCTL executable from: https://github.com/IBM/cpdctl/releases to a local folder. 
+Then add your local folder to your system path to ensure cpdctl can be executed anywhere.
+
+Please note although product team endevour to make sure it is bachwards compatiable, but appreciate your report to us if you met any issues,
+
+## Deployment
 Set your working directory under **deployment_with_cpdctl**.
-
-## cpdctl Installation
-Please note code has been tested on CPDCTL v1.4.20 version, future versions may not be supported.
-Download corresponding cpdctl to **deplyment_with_cpdctl" from
-https://github.com/IBM/cpdctl/releases/tag/v1.4.20
-
-Download the relevant source code depending on your operating system and extract the cpdctl exe file. Make
-sure the cpdctl file is in your system path.
-
-### For Windows:
-TODO.
-
-### For MacOS:
-Step 1: 
-Create a directory cpdctl/bin, and put the exe file in that directory.
-
-Step 2:
-Run below command in terminal:
-```
-sudo nano /etc/paths
-```
-Note: This step will require admin access
-
-Step 3:
-Add your directory created in step 1 to the list.
-
-Step 4:
-Exit (Ctrl X), and save the changes, make sure to restart your terminal.
-
-Now you can call the cpdctl exe file in any directory.
-
-### For Linux:
-TODO.
 
 ## Step 1: Configure YAML file
 Please make a copy of configuration_template_python.yaml or configuration_template_R.yaml  and then modify the configuration accordingly. 
 
 I tried to make the yaml file variables to be similar to previous versions of this tool, however 
-there are some key differences. 
+there are some key differences.
 
 
-# For Python:
-## Step 2: Deploy!
+## Step 2 For Python : Deploy!
 Run below command to deploy your python code package or notebook:
 
 ```
@@ -72,9 +51,8 @@ with asset id [747ed3a3-e716-4c11-9ded-a53466b8c788].
 ```
 Note: Asset id and notebook name will be different
 
-## Step 3: Run!
 
-
+## Step 3 For Python : Run Job
 
 Run below command to run your python code package or notebook:
 
@@ -127,8 +105,7 @@ hello world
 
 **Note:** This is from the notebook_example folder, with main file as cpdctl-test-notebook.ipynb
 
-# For R:
-## Step 2: Deploy!
+## Step 2 For R: Deploy!
 Run below command to deploy your python code package or notebook:
 
 ```
@@ -136,7 +113,6 @@ python deploy_r_with_cpdctl.py --yaml_file [your_yaml_file]
 ```
 
 **Note:** If no yaml_file is provided it will default to: configuration_template_R.yaml
-
 
 
 ## FILE TYPES SUPPORTED

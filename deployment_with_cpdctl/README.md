@@ -15,14 +15,14 @@ Please note although product team endevour to make sure it is bachwards compatia
 ## Deployment
 Set your working directory under **deployment_with_cpdctl**.
 
-## Step 1: Configure YAML file
+### Step 1: Configure YAML file
 Please make a copy of configuration_template_python.yaml or configuration_template_R.yaml  and then modify the configuration accordingly. 
 
 I tried to make the yaml file variables to be similar to previous versions of this tool, however 
 there are some key differences.
 
 
-## Step 2 For Python : Deploy!
+### Step 2 for Python : Deploy!
 Run below command to deploy your python code package or notebook:
 
 ```
@@ -52,7 +52,7 @@ with asset id [747ed3a3-e716-4c11-9ded-a53466b8c788].
 Note: Asset id and notebook name will be different
 
 
-## Step 3 For Python : Run Job
+### Step 3 for Python : Run Job
 
 Run below command to run your python code package or notebook:
 
@@ -105,7 +105,7 @@ hello world
 
 **Note:** This is from the notebook_example folder, with main file as cpdctl-test-notebook.ipynb
 
-## Step 2 For R: Deploy!
+### Step 2 for R: Deploy!
 Run below command to deploy your python code package or notebook:
 
 ```
@@ -114,12 +114,6 @@ python deploy_r_with_cpdctl.py --yaml_file [your_yaml_file]
 
 **Note:** If no yaml_file is provided it will default to: configuration_template_R.yaml
 
-
-## FILE TYPES SUPPORTED
-### Deployment Space
-Code Packages, Notebooks
-### Project Space
-Python Scripts, Notebooks
 
 ## Additional Notes
 

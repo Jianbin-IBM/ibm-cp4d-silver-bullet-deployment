@@ -57,5 +57,5 @@ Thank you!
 
 # Usage
 We have 2 ways to deploy: 
-- With WML client, please refer to [**deployment_with_wml_client**](deployment_with_wml_client)
 - With cpdctl, please refer to [**deployment_with_cpdctl**](deployment_with_cpdctl)
+- With WML client, please refer to [**deployment_with_wml_client**](deployment_with_wml_client)

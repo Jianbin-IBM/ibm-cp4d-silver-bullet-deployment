@@ -1,12 +1,9 @@
 # Introduction
- "**S**ilver **B**ullet on **D**eployment with **W**atson **M**achine **L**earning" 
- aims with deploying any python/R projects to IBM Cloud Pak for Data (CPD) on-prem or CPDaas. 
- With simplified interfaces and intuitive yaml example, users without any prior knowledge of CPD can be enabled in several minutes.
-
-There are 2 ways to deploy. One is using [wml client](https://pypi.org/project/ibm-watson-machine-learning/) 
-which is is a library that allows to work with Watson Machine Learning service on IBM Cloud and IBM Cloud for Data. 
-The other is using [cpdctl](https://github.com/IBM/cpdctl). 
-In the code repo, we provided APIs and examples for both methods.
+"**Silver Bullet on Deploying Any Data Science Projects to IBM Cloud Pak for Data**"
+ aims to deploy any python/R Data Science projects and ML models to IBM Cloud Pak for Data (CPD) on-prem or CPDaas. 
+With a simplified and consistent interface, users without any prior knowledge of IBM Cloud Pak for Data can be enabled in several minutes.  
+By configuring a self-explained YAML file, all the deployments can be done with one-line script, 
+ which can be used to enable CI/CD very easily.
 
 **Features**
 - Support projects developed within or outside of Watson Studio in IBM Cloud Pak for Data.
@@ -14,11 +11,9 @@ In the code repo, we provided APIs and examples for both methods.
 - Support Python/R Scripts, Python/R notebooks, R Shiny.  
 - Support "batch job"  and "online" deployment
 - Support all ML frameworks, as long as it can be done with python/R.
-- It provided one line deployment script to enable CI/CD.
 - Email notification can be enabled if there is an accessible SMTP server. 
   It is particularly useful when python/R failed due to bugs or imperfect data.
 - Contain **stderr** and **stdout** in job logs and easy to know what happened in detail. 
-
 
 Authors: Jianbin Tang, jbtang@au1.ibm.com; Rutvik Dave, Rutvik.Dave@ibm.com
 
@@ -28,16 +23,10 @@ Also appreciate help from:
 - Randy Phoa
 - Carlos Mejia Johnson
 
-
-# License
-- Apache License 2.0.
-- Feel free to fork it!   
-- Not a license requirement, but if you like it or used it, 
-  appreciate your "watch" and "star" the project :) 
-- Welcome your feedbacks and contributions. 
-
-  
-Thank you!
+# Usage
+There are 2 ways to deploy. 
+- With [cpdctl](https://github.com/IBM/cpdctl), please refer to [**deployment_with_cpdctl**](deployment_with_cpdctl)
+- With [wml client](https://pypi.org/project/ibm-watson-machine-learning/), please refer to [**deployment_with_wml_client**](deployment_with_wml_client)
 
 # Code Structure
 - **deployment_with_cpdctl** : 
@@ -55,7 +44,14 @@ Thank you!
 - **py_examples** :  contains examples for python
 - **r_example** : contains examples for R
 
-# Usage
-We have 2 ways to deploy: 
-- With cpdctl, please refer to [**deployment_with_cpdctl**](deployment_with_cpdctl)
-- With WML client, please refer to [**deployment_with_wml_client**](deployment_with_wml_client)
+
+# License
+- Apache License 2.0.
+- Feel free to fork it!   
+- Not a license requirement, but if you like it or used it, 
+  appreciate your "watch" and "star" the project :) 
+- Welcome your feedbacks and contributions. 
+
+  
+Thank you!
+

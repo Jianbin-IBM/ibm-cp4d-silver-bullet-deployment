@@ -49,9 +49,6 @@ if __name__ == '__main__':
     from cpdctl_api import install_cpdctl
     install_cpdctl(cpdctl_config)
     """
-        
-    subprocess.run(["export", "cpdctl=./cpdctl"], capture_output=True, text=True).stdout
-    subprocess.run(["cpdctl"])
 
     # Step 1: Login User
     from cpdctl_api import user_login

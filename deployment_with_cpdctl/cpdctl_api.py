@@ -123,9 +123,9 @@ def user_login(wml_credentials):
     # try to search for spaces to verify user has been correctly authenticated
     try:
         auth_verify = subprocess.run(["cpdctl", "space", "list", "--output", "yaml"], capture_output=True, text=True).stdout
-        print("output from cpdctl: " + auth_verify)
+        #print("output from cpdctl: " + auth_verify)
         auth_verify = yaml.safe_load(auth_verify)
-        print("output after yaml: " + auth_verify)
+        #print("output after yaml: " + auth_verify)
         # print(auth_verify)
         verify = auth_verify['first']
         print("User authenticated successfully")

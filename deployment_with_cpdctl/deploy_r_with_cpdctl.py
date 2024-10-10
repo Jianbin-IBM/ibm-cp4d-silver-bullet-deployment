@@ -112,7 +112,7 @@ if __name__ == '__main__':
         shutil.make_archive(deployment_info["code_pkg_name"], 'zip', prj_info["code_dir"])
         code_pkg_zip = deployment_info["code_pkg_name"] + ".zip"
         if prj_info["r_shiny_app"]:
-            from cpdctl_api import upload_rshiny_asset, search_asset, create_r_shiny_app
+            from cpdctl_api import upload_rshiny_asset, search_asset, create_r_shiny_app, search_r_shiny_app
 
             # if main_file is not app.R, force copy to app.R
             if main_file != 'app.R':
@@ -120,6 +120,31 @@ if __name__ == '__main__':
                 os.remove(prj_info["code_dir"] + "/app.R")
                 subprocess.run(["cp", "-f", main_file_path, prj_info["code_dir"] + "/app.R"], stdout=subprocess.DEVNULL,
                                stderr=subprocess.STDOUT)
+
+            # need to delete deployment before delete assets
+            if (deployment_info.get('rshiny_app_serving_name')):
+                rshiny_app_serving_name = deployment_info["rshiny_app_serving_name"]
+            else:
+                rshiny_app_serving_name = deployment_info["code_pkg_name"] + "_app"
+
+            print("\n-- Check if RShiny App exists: ", rshiny_app_serving_name)
+
+            # check if rshiny app exists with same serving name
+            asset_id = search_r_shiny_app(rshiny_app_serving_name, space_id)
+            if (asset_id == None):
+                pass
+            else:
+                print("Found existing deployed RShiny App with same name", asset_id)
+                subprocess.run(
+                    ["cpdctl", "ml", "deployment", "delete", "--deployment-id", asset_id, "--space-id", space_id],
+                    capture_output=True, text=True).stdout
+
+                # sleep 10s and wait for deletion.
+                import time
+
+                # Sleep for 10 seconds
+                time.sleep(10)
+                print(asset_id, "has been deleted")
 
             # uppload rshiny code package
             shiny_asset_id = upload_rshiny_asset(code_pkg_zip, deployment_info["code_pkg_name"], space_id)

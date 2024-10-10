@@ -63,6 +63,7 @@ if __name__ == '__main__':
             if "password" in wml_credentials:
                 del wml_credentials['password']
 
+
     # This is a generator code needed by CP4D to run your code. In most cases, you don't have to modify it.
     def my_deployable_function(wml_credentials=wml_credentials, deployment_info=deployment_info, prj_info=prj_info,
                                email_setting=email_setting):

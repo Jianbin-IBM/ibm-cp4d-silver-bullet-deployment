@@ -531,7 +531,6 @@ def create_r_shiny_app(deployment_info, rshiny_asset_id, space_id):
     }
     asset_json = json.dumps(asset)    
 
-
     # create hardware spec json
     hardware_spec = deployment_info['hardware_spec']
     hardware_spec_id = search_hardware_spec(hardware_spec, space_id)
@@ -555,20 +554,21 @@ def create_r_shiny_app(deployment_info, rshiny_asset_id, space_id):
 
     print("\n-- Start to create RShiny App: ",rshiny_app_serving_name)
 
-    # check if rshiny app exists with same serving name
-    asset_id = search_r_shiny_app(rshiny_app_serving_name, space_id)
-    if(asset_id == None):
-        pass
-    else:
-        print("Found existing deployed RShiny App with same name",asset_id)
-        subprocess.run(["cpdctl", "ml", "deployment","delete", "--deployment-id", asset_id, "--space-id", space_id], 
-                        capture_output=True, text=True).stdout
-
-        # sleep 10s and wait for deletion.
-        import time
-        # Sleep for 10 seconds
-        time.sleep(10)
-        print(asset_id, "has been deleted",)
+    # JB: no need because we need to delete app before delete the asset
+    # # check if rshiny app exists with same serving name
+    # asset_id = search_r_shiny_app(rshiny_app_serving_name, space_id)
+    # if(asset_id == None):
+    #     pass
+    # else:
+    #     print("Found existing deployed RShiny App with same name",asset_id)
+    #     subprocess.run(["cpdctl", "ml", "deployment","delete", "--deployment-id", asset_id, "--space-id", space_id],
+    #                     capture_output=True, text=True).stdout
+    #
+    #     # sleep 10s and wait for deletion.
+    #     import time
+    #     # Sleep for 10 seconds
+    #     time.sleep(10)
+    #     print(asset_id, "has been deleted")
 
     rshiny_details = {
         "authentication" : deployment_info['authentication'],

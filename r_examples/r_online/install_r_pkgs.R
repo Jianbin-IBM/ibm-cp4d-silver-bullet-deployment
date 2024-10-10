@@ -6,7 +6,7 @@ packages_to_install <- c(
 )
 
 # DO NOT modify below code
-options(repos = c(CRAN = "https://artifactory.gcp.anz/artifactory/r-project-cran/"))
+options(repos = c(CRAN = "[your own internal repo]"))
 
 options(download.file.method = "curl")
 options(download.file.extra = "--insecure")
